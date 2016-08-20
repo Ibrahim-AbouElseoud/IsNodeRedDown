@@ -45,7 +45,7 @@ app.controller("statusCtrl",function($scope,$http,$cookies){
 
   $http({
         method : "GET",
-          url : "http://localhost:3000/status"
+          url : "/status"
       }).then(function mySucces(response) {
         console.log(response);
         if(response.data===false || response.data==="false") {

@@ -17,9 +17,10 @@ app.get('/status',function(req,res){
   urli='http://drivepal.mybluemix.net';
     request({
         url: urli,
-        method: 'GET',
+        timeout: 1500,
+        method: 'GET'
     }, function (error, response, body) {
-      console.log(response.statusCode);
+      // console.log(response.statusCode);
         if(error) {console.log(error); res.send(true);}
         else if ( response.statusCode === 200) { res.send(false);} //not down
         else {

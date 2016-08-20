@@ -1,0 +1,22 @@
+{
+  "name": "IsNodeRedDown",
+  "version": "1.0.0",
+  "description": "just a web app that queries our IBM BlueMix Node Red server and sees if it's down then updates the frontend",
+ "main": "server.js",
+ "author": "Ibrahim Abou Elseoud",
+ "scripts": {
+   "start": "node server.js"
+ },
+  "dependencies": {
+    "express": "*",
+    "morgan": "*",
+    "request": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ibrahim-AbouElseoud/IsNodeRedDown.git"
+  },"license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Ibrahim-AbouElseoud/IsNodeRedDown/issues"
+  }
+}

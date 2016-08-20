@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html ng-app="App">
+
+<head>
+
+    <title>Is NodeRed Down ??</title>
+
+    <script src="./jquery-2.2.0.min.js"></script>
+  	<script src="./bootstrap.min.js"></script>
+  		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.js"></script>
+
+    <link rel="stylesheet" href="./bootstrap.min.css">
+
+</head>
+
+<body>
+<div class="jumbotron" ng-controller="statusCtrl">
+  <h1>Is NODE RED DOWN ?? <span class="label" ng-hide="loading" ng-class="labelType">{{status}}</span>
+</h1>
+<hr>
+  <img src="./loading.gif" ng-init="loading=true ; up=false;down=false;" ng-show="loading">
+  <!-- <div class="alert" ng-class="alertStat" role="alert">
+     {{status}}
+  </div> -->
+  <img ng-src="assets/down/{{image}}" ng-show="!loading && down "class="center-block img-responsive"/>
+  <img ng-src="assets/up/{{image}}" ng-show="!loading && up" class="center-block img-responsive"/>
+
+
+</div>
+
+<script>
+var app = angular.module("App",["ngCookies"]);
+app.controller("statusCtrl",function($scope,$http,$cookies){
+  //"haveaseat.jpg","soon.jpg","debugging.png"
+  var imgUp =["evil.jpg","login.jpg","bothWork.jpg","excited.jpg","lie.png" ,"liveLong.jpg","network.jpg","serverUp.jpg","tech.jpg","working.jpg","yes.jpg"];
+  var imgDown=["IT.jpg","cute.jpg","yolo.jpg","aliens.jpg","babey.jpg","bluemix.jpg","client.jpg","codeRed.jpg","dedicated.jpg","deport.jpg","evil.jpg","getOver.jpg","hate.jpg","kittenMe.jpg","lemon.jpg","moreServers.jpg","nerd.jpg","nodeRed.jpg","piss.jpg","reboot.jpg","simply.png","weekend.jpg","working.jpg",];
+  var indexUp=$cookies.get("indexUp");
+  var indexDown=$cookies.get("indexDown");;
+  var random;
+  // Math.floor(Math.random() * length)
+  // $cookies.put('indexUp', indexUp);
+  // $cookies.put('indexDown', indexDown);
+
+  $http({
+        method : "GET",
+          url : "http://localhost:3000/status"
+      }).then(function mySucces(response) {
+        console.log(response);
+        if(response.data===false || response.data==="false") {
+          $scope.labelType="label-success";
+          $scope.status="NO :)";
+          random= Math.floor(Math.random() * imgUp.length);
+          // console.log("rndm"+random);
+          // console.log("indx"+indexUp);
+          indexUp= (random == indexUp)? Math.floor(Math.random() * imgUp.length) : random;
+          // console.log("indx"+indexUp);
+          $cookies.put('indexUp', indexUp);
+          $scope.image=imgUp[indexUp];
+          // $scope.alertStat="alert-success"
+          $scope.up=true;
+          $scope.loading=false;
+            }
+        else {
+          $scope.labelType="label-danger";
+          $scope.status="YES :(";
+          random= Math.floor(Math.random() * imgDown.length);
+          indexDown= (random==beforeUp)? Math.floor(Math.random() * imgDown.length) : index;
+          $scope.image=imgDown[indexDown];
+          $cookies.put('indexDown', indexDown);
+          // $scope.alertStat="alert-danger"
+          $scope.down=true;
+          $scope.loading=false;
+
+        }
+      }, function myError(response) {
+        console.log(response );
+        $scope.labelType="label-danger";
+        $scope.status="YES :(";
+        // $scope.image=imgDown[Math.floor(Math.random() * imgDown.length)];
+        random= Math.floor(Math.random() * imgDown.length);
+        indexDown= (random==beforeUp)? Math.floor(Math.random() * imgDown.length) : index;
+        $scope.image=imgDown[indexDown];
+        $cookies.put('indexDown', indexDown);
+        // $scope.alertStat="alert-danger"
+        $scope.down=true;
+        $scope.loading=false;
+      });
+});
+</script>
+
+
+</body>
+
+</html>
